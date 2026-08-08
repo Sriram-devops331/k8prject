@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+  name: mysql
+spec: 
+  replicas: 1
+  selector:
+    matchLables:
+      app: app-database
+  template:
+    metadata:
+      lables:
+        app: app-database
+    spec:
+      containers:
+        - name: databaseCont
+          image: sriramduvvuru/kuberfirst:dbimage
+          ports:
+            - containerPort: 3306
+
+          # secret integration
+          envfrom:
+            - secretRef:
+                name: bankapp-db-secret
+          # resource-quota integration
+          resources:
+            requests:
+              cpu: '100m'
+              memory: '128Mi'
+            limits:
+              cpu: '200m'
+              memory: "256Mi"
+          volumeMounts:
+            - name: pvc-1
+              mountPath: /var/lib/mysql
+          
+
+
+           

@@ -1,0 +1,20 @@
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoScaler
+metadata:
+  name: bankhp-app
+spec:
+  scaleTargetRef:
+    apiVersion: v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 2
+  maxReplicas: 7
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+
