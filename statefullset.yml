@@ -23,6 +23,7 @@ spec:
 
           ports:
             - containerPort: 3306
+              name: mysql
 
           # Secret integration
           envFrom:
@@ -38,9 +39,10 @@ spec:
               cpu: "200m"
               memory: "256Mi"
 
+          # Persistent storage
           volumeMounts:
             - name: mysql-data
-              mountPath: /usr/share/nginx/html/
+              mountPath: /var/lib/mysql
 
   volumeClaimTemplates:
     - metadata:
@@ -48,6 +50,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
+        storageClassName: gp2
         resources:
           requests:
             storage: 2Gi
