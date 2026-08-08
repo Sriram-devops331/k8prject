@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - name: databaseCont
+        - name: databasecont
           image: sriramduvvuru/kuberfirst:dbimage
 
           ports:
