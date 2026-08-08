@@ -4,9 +4,9 @@ kind: Ingress
 metadata:
   name: bank-ingress
   annotations:
-    niginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: niginx
+  ingressClassName: nginx
   rules:
     - http:
         paths:
