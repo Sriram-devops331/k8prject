@@ -1,50 +1,53 @@
----
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: myapp
-spec: 
+spec:
   replicas: 2
+
   selector:
-    matchLables:
+    matchLabels:
       app: niginx
+
   template:
     metadata:
-      lables:
+      labels:
         app: niginx
+
     spec:
       containers:
         - name: cont1
           image: sriramduvvuru/kuberfirst:appimage
+
           ports:
             - containerPort: 80
 
-          # configmap integration
-          envfrom:
+          # ConfigMap integration
+          envFrom:
             - configMapRef:
                 name: bankapp-config
-          # resource-quota integration
+
+          # Resource-quota integration
           resources:
             requests:
-              cpu: '100m'
-              memory: '128Mi'
+              cpu: "100m"
+              memory: "128Mi"
             limits:
-              cpu: '200m'
+              cpu: "200m"
               memory: "256Mi"
 
+          # Liveness probe
           livenessProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 30
             periodSeconds: 5
-            
+
+          # Readiness probe
           readinessProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 5
-
-
-           
