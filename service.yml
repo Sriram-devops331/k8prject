@@ -5,7 +5,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: niginx
+    app: nginx
   ports:
     - port: 80
       targetPort: 80
